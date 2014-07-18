@@ -1,23 +1,28 @@
-# This is a template for a Python scraper on Morph (https://morph.io)
-# including some code snippets below that you should find helpful
+"""Get the current lake level for Lake Travis"""
 
-# import scraperwiki
-# import lxml.html
-#
-# # Read in a page
-# html = scraperwiki.scrape("http://foo.com")
-#
-# # Find something on the page using css selectors
-# root = lxml.html.fromstring(html)
-# root.cssselect("div[align='left']")
-#
-# # Write out to the sqlite database using scraperwiki library
-# scraperwiki.sqlite.save(unique_keys=['name'], data={"name": "susan", "occupation": "software developer"})
-#
-# # An arbitrary query against the database
-# scraperwiki.sql.select("* from data where 'name'='peter'")
+import re
 
-# You don't have to do things with the ScraperWiki and lxml libraries. You can use whatever libraries are installed
-# on Morph for Python (https://github.com/openaustralia/morph-docker-python/blob/master/pip_requirements.txt) and all that matters
-# is that your final data is written to an Sqlite database called data.sqlite in the current working directory which
-# has at least a table called data.
+import scraperwiki
+from bs4 import BeautifulSoup
+from dateutil.parser import parse as date_parse
+
+html = scraperwiki.scrape("http://travis.uslakes.info/Level.asp")
+
+soup = BeautifulSoup(html)
+level_label = soup.find(text="Water Level")
+td = level_label.parent.parent.parent
+
+level = float(td.find('font', attrs={'color': 'Green'}).strong.text)
+unit = td.findAll('font')[2].strong.text
+date = td.findAll('font')[3].text
+time = td.findAll('font')[4].text.strip()
+timestamp = date_parse(u"%s %s" % (date, time))
+
+full_text_re = re.compile("below full pool of (.*)")
+full_text = td.find(text=full_text_re)
+full_level = float(full_text_re.match(full_text).group(1))
+
+scraperwiki.sqlite.save(
+    unique_keys=['timestamp'],
+    data={"timestamp": timestamp, "level": level, "unit": unit}
+)
