@@ -9,13 +9,12 @@ from dateutil.parser import parse as date_parse
 html = scraperwiki.scrape("http://travis.uslakes.info/Level.asp")
 
 soup = BeautifulSoup(html)
-level_label = soup.find(text="Water Level")
+level_label = soup.find(text="WATER LEVEL")
 td = level_label.parent.parent.parent
-
-level = float(td.find('font', attrs={'color': 'Green'}).strong.text)
-unit = td.findAll('font')[2].strong.text
-date = td.findAll('font')[3].text
-time = td.findAll('font')[4].text.strip()
+level = float(td.find(text=re.compile("\d\d\d\.\d\d")))
+unit = "Feet MSL"
+date = td.findAll('font')[0].text
+time = td.findAll('font')[1].text.strip()
 timestamp = date_parse(u"%s %s" % (date, time))
 
 full_text_re = re.compile("below full pool of (.*)")
