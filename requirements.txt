@@ -1,11 +1,13 @@
-Mako==1.0.1
-MarkupSafe==0.23
-SQLAlchemy==1.0.8
-alembic==0.7.7
+# It's easy to add more libraries or choose different versions. Any libraries
+# specified here will be installed and made available to your morph.io scraper.
+# Find out more: https://morph.io/documentation/python
+
+# Custom version of scraperwiki library
+-e git+http://github.com/openaustralia/scraperwiki-python.git@morph_defaults#egg=scraperwiki
+
+lxml==3.4.4
+cssselect==0.9.1
+
+# our requirements
 beautifulsoup4==4.3.2
-dumptruck==0.1.6
-lxml==3.3.5
 python-dateutil==2.2
-requests==2.7.0
--e git+http://github.com/openaustralia/scraperwiki-python.git@732dda1982a3b2073f6341a6a24f9df1bda77fa0#egg=scraperwiki-origin/morph_defaults
-six==1.9.0
