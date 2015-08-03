@@ -1,7 +1,11 @@
+Mako==1.0.1
+MarkupSafe==0.23
+SQLAlchemy==1.0.8
+alembic==0.7.7
 beautifulsoup4==4.3.2
 dumptruck==0.1.6
 lxml==3.3.5
 python-dateutil==2.2
-requests==2.3.0
-scraperwiki==0.3.11
-six==1.7.3
+requests==2.7.0
+scraperwiki==0.5.1
+six==1.9.0
