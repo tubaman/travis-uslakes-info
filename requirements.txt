@@ -7,5 +7,5 @@ dumptruck==0.1.6
 lxml==3.3.5
 python-dateutil==2.2
 requests==2.7.0
-scraperwiki==0.5.1
+-e git+http://github.com/openaustralia/scraperwiki-python.git@732dda1982a3b2073f6341a6a24f9df1bda77fa0#egg=scraperwiki-origin/morph_defaults
 six==1.9.0
