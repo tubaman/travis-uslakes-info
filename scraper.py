@@ -17,9 +17,9 @@ date = td.findAll('font')[0].text
 time = td.findAll('font')[1].text.strip()
 timestamp = date_parse(u"%s %s" % (date, time))
 
-full_text_re = re.compile("below full pool of (.*)")
+full_text_re = re.compile("full pool of (.*)")
 full_text = td.find(text=full_text_re)
-full_level = float(full_text_re.match(full_text).group(1))
+full_level = float(full_text_re.search(full_text).group(1))
 
 scraperwiki.sqlite.save(
     unique_keys=['timestamp'],
