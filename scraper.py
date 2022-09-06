@@ -8,7 +8,7 @@ from dateutil.parser import parse as date_parse
 
 html = scraperwiki.scrape("http://travis.uslakes.info/Level.asp")
 
-soup = BeautifulSoup(html)
+soup = BeautifulSoup(html, features="lxml")
 level_label = soup.find(text="WATER LEVEL")
 td = level_label.parent.parent.parent
 level = float(td.find(text=re.compile("\d\d\d\.\d\d")))
