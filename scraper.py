@@ -15,11 +15,15 @@ level = float(td.find(text=re.compile("\d\d\d\.\d\d")))
 unit = "Feet MSL"
 date = td.findAll('font')[0].text
 time = td.findAll('font')[1].text.strip()
-timestamp = date_parse(u"%s %s" % (date, time))
+timestamp = date_parse("%s %s" % (date, time))
 
 full_text_re = re.compile("full pool of (.*)")
 full_text = td.find(text=full_text_re)
 full_level = float(full_text_re.search(full_text).group(1))
+
+print(f"timestamp: {timestamp}")
+print(f"level: {level}")
+print(f"unit: {unit}")
 
 scraperwiki.sqlite.save(
     unique_keys=['timestamp'],
