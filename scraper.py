@@ -6,7 +6,7 @@ import scraperwiki
 from bs4 import BeautifulSoup
 from dateutil.parser import parse as date_parse
 
-html = scraperwiki.scrape("http://travis.uslakes.info/Level.asp")
+html = scraperwiki.scrape("https://travis.uslakes.info/Level/")
 
 soup = BeautifulSoup(html, features="lxml")
 level_label = soup.find(text="WATER LEVEL")
